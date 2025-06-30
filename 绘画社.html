@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阳光手绘社</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: &apos;Segoe UI&apos;, Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #FF9E58;
+            --secondary: #FFD166;
+            --accent: #EF5D60;
+            --dark: #2B2D42;
+            --light: #FDF7FA;
+        }
+        
+        body {
+            background-color: #fffaf0;
+            color: #333;
+            line-height: 1.6;
+            background-image: radial-gradient(var(--secondary) 2px, transparent 2px);
+            background-size: 40px 40px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: white;
+            margin-right: 15px;
+            background: var(--accent);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .logo h1 {
+            color: white;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url(&apos;data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 Q50,20 100,0 L100,100 Q50,80 0,100 Z" fill="rgba(255,210,102,0.2)"/></svg>&apos;);
+            background-size: cover;
+            z-index: -1;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 30px auto;
+            color: #555;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(239, 93, 96, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(239, 93, 96, 0.6);
+        }
+        
+        /* 关于我们 */
+        .about {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 8px solid white;
+            position: relative;
+        }
+        
+        .about-image::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--secondary);
+            border-radius: 20px;
+            z-index: -1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* 作品展示 */
+        .gallery {
+            padding: 80px 0;
+            background: #f9f5f0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .artwork {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .artwork:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .artwork img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .artwork-info {
+            padding: 20px;
+        }
+        
+        .artwork-info h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .artwork-info p {
+            color: #777;
+            font-size: 0.95rem;
+        }
+        
+        /* 活动部分 */
+        .events {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .event-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .event-item {
+            display: flex;
+            margin-bottom: 40px;
+            background: #fffaf0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .event-date {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .event-date .day {
+            font-size: 2.5rem;
+            font-weight: bold;
+            line-height: 1;
+        }
+        
+        .event-date .month {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+        
+        .event-details {
+            padding: 25px;
+            flex: 1;
+        }
+        
+        .event-details h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .event-details p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            text-align: left;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .contact-info {
+            margin-top: 15px;
+        }
+        
+        .contact-info div {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav li {
+                margin: 0 10px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .event-item {
+                flex-direction: column;
+            }
+            
+            .event-date {
+                flex-direction: row;
+                justify-content: center;
+                padding: 10px;
+            }
+            
+            .event-date .day {
+                margin-right: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            nav li {
+                margin: 0 5px;
+            }
+            
+            nav a {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+        }
+        
+        /* 手绘风格元素 */
+        .hand-drawn {
+            position: relative;
+        }
+        
+        .hand-drawn::after {
+            content: "";
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 50px;
+            height: 50px;
+            background: url(&apos;data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="%23FF9E58" stroke-width="3" stroke-dasharray="5,5"/></svg>&apos;);
+            background-size: contain;
+            z-index: -1;
+        }
+        
+        .brush-stroke {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            background: rgba(255, 210, 102, 0.3);
+            border-radius: 20px;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-paint-brush"></i>
+                <h1>阳光手绘社</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#gallery">作品展示</a></li>
+                    <li><a href="#events">活动安排</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>用画笔捕捉生活的色彩</h2>
+            <p>阳光手绘社是一个充满创意和热情的艺术社团，我们致力于为所有屯溪一中热爱绘画的朋友提供一个交流、学习和展示的平台。无论你是零基础小白还是资深绘画爱好者，这里都有属于你的一片天地。</p>
+            <a href="#contact" class="cta-button">立即加入我们</a>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">关于我们</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>我们的故事</h3>
+                    <p>阳光手绘社成立于20xx年，由一群热爱绘画的高中苦逼学生创办。我们的初衷是建立一个自由、开放的艺术交流平台，让更多人能够体验绘画的乐趣。</p>
+                    <p>经过多年的发展，我们已经成长为拥有30多名成员的大型社团，定期举办抽奖活动、贩卖周边、作品展览等丰富多彩的活动。</p>
+                    <p>我们的宗旨是：用画笔记录生活，用色彩传递情感，让艺术温暖每个人的心灵。</p>
+                    <h3 style="margin-top: 30px;">我们的特色</h3>
+                    <p><i class="fas fa-check" style="color: var(--accent);"></i> 专业导师指导</p>
+                    <p><i class="fas fa-check" style="color: var(--accent);"></i> 丰富的社团周边</p>
+                    <p><i class="fas fa-check" style="color: var(--accent);"></i> 时不时进行抽奖</p>
+                    <p><i class="fas fa-check" style="color: var(--accent);"></i> 定期户外写生</p>
+                </div>
+                <div class="about-image hand-drawn">
+                    <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=800" alt="阳光手绘社成员活动">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品展示 -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <h2 class="section-title">作品展示</h2>
+            <div class="gallery-grid">
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="水彩风景">
+                    <div class="artwork-info">
+                        <h3>1</h3>
+                        <p>a/ 谁来放一张图片</p>
+                    </div>
+                </div>
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="素描人物">
+                    <div class="artwork-info">
+                        <h3>1</h3>
+                        <p>a/ 谁来放一张图片</p>
+                    </div>
+                </div>
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="素描人物">
+                    <div class="artwork-info">
+                        <h3>1</h3>
+                        <p>a/ 谁来放一张图片</p>
+                    </div>
+                </div>
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1536924940846-227afb31e2a5?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="素描人物">
+                    <div class="artwork-info">
+                        <h3>2</h3>
+                        <p>b/ 谁再来放一张图</p>
+                    </div>
+                </div>
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1515405295579-ba7b45403062?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="油画静物">
+                    <div class="artwork-info">
+                        <h3>这里还需要一张图</h3>
+                        <p>c/ 需要好心人</p>
+                    </div>
+                </div>
+                <div class="artwork">
+                    <img src="https://images.unsplash.com/photo-1501084817091-a4f3d1d19e07?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&w=500" alt="动漫角色">
+                    <div class="artwork-info">
+                        <h3>oi还要一张</h3>
+                        <p>d / 广告位招租</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 活动安排 -->
+    <section class="events" id="events">
+        <div class="container">
+            <h2 class="section-title">年度活动</h2>
+            <div class="event-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="day">15</div>
+                        <div class="month">一月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>社团游园会</h3>
+                        <p>时间：下午 1:00 - 3:00</p>
+                        <p>地点：操场</p>
+                        <p>内容：周边贩卖，组织游戏</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="day">22</div>
+                        <div class="month">五月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>社团内部抽奖</h3>
+                        <p>时间：午休时间</p>
+                        <p>地点：美术教室</p>
+                        <p>内容：花光社费</p>
+                    </div>
+                </div>
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="day">05</div>
+                        <div class="month">十月</div>
+                    </div>
+                    <div class="event-details">
+                        <h3>迎新会</h3>
+                        <p>时间：午休时间</p>
+                        <p>地点：美术教室</p>
+                        <p>内容：欢迎新社员，互相交流学习。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>关于我们</h3>
+                    <p>阳光手绘社致力于推广绘画艺术，为所有热爱绘画的朋友提供学习交流的平台。无论你是初学者还是有经验的画者，我们都欢迎你的加入。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <div class="contact-info">
+                        <div><i class="fas fa-map-marker-alt"></i> 地址：屯溪一中内部</div>
+                        <div><i class="fas fa-phone"></i> 电话：好像还没有</div>
+                        <div><i class="fas fa-envelope"></i> QQ：1643962526</div>
+                        <div><i class="fas fa-clock"></i> 开放时间：全天</div>
+                    </div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-qq"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <p><a href="#home" style="color: #ccc; text-decoration: none;">首页</a></p>
+                    <p><a href="#about" style="color: #ccc; text-decoration: none;">关于我们</a></p>
+                    <p><a href="#gallery" style="color: #ccc; text-decoration: none;">作品展示</a></p>
+                    <p><a href="#events" style="color: #ccc; text-decoration: none;">活动安排</a></p>
+                    <p><a href="#contact" style="color: #ccc; text-decoration: none;">联系我们</a></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 阳光手绘社 版权所有 | 设计制作：屯溪一中绘画社</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的滚动效果
+        document.querySelectorAll(&apos;a[href^="#"]&apos;).forEach(anchor => {
+            anchor.addEventListener(&apos;click&apos;, function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute(&apos;href&apos;)).scrollIntoView({
+                    behavior: &apos;smooth&apos;
+                });
+            });
+        });
+        
+        // 画廊图片悬停效果
+        const artworks = document.querySelectorAll(&apos;.artwork&apos;);
+        artworks.forEach(artwork => {
+            artwork.addEventListener(&apos;mouseenter&apos;, () => {
+                artwork.style.transform = &apos;translateY(-10px)&apos;;
+            });
+            artwork.addEventListener(&apos;mouseleave&apos;, () => {
+                artwork.style.transform = &apos;translateY(0)&apos;;
+            });
+        });
+    </script>
+</body>
+</html>
+```
